@@ -1,0 +1,231 @@
+name: Generate portfolio PDFs
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'evidence/**'
+      - '.github/workflows/generate-pdfs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate PDFs
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          OUT = Path("reports")
+          OUT.mkdir(parents=True, exist_ok=True)
+
+          def safe(s):
+              s = s.replace("\u2014", "-").replace("\u2013", "-").replace("\u2192", "->").replace("\u2193", "v")
+              s = s.replace("\u2264", "<=").replace("\u2265", ">=").replace("\u00a0", " ")
+              return s.encode("latin-1", "replace").decode("latin-1")
+
+          def esc(s):
+              return safe(s).replace("\\", "\\\\").replace("(", "\(").replace(")", "\)")
+
+          def make_pdf(path, title, lines):
+              pages = []
+              page = []
+              for line in lines:
+                  if line.startswith("\f"):
+                      pages.append(page)
+                      page = []
+                      continue
+                  words = safe(line).split()
+                  cur = ""
+                  for w in words:
+                      if len(cur) + len(w) + 1 <= 92:
+                          cur = (cur + " " + w).strip()
+                      else:
+                          page.append(cur)
+                          cur = w
+                  if cur:
+                      page.append(cur)
+                  if len(page) >= 48:
+                      pages.append(page)
+                      page = []
+              if page:
+                  pages.append(page)
+
+              objs = [None]
+              kids = []
+              next_id = 3
+              font_id = None
+
+              for p in pages:
+                  page_id = next_id
+                  content_id = next_id + 1
+                  next_id += 2
+                  kids.append(f"{page_id} 0 R")
+                  y = 760
+                  commands = ["BT", "/F1 10 Tf"]
+                  for line in p:
+                      commands.append(f"1 0 0 1 44 {y} Tm")
+                      commands.append(f"({esc(line)}) Tj")
+                      y -= 14
+                  commands.append("ET")
+                  stream = "\n".join(commands)
+                  while len(objs) <= content_id:
+                      objs.append(None)
+                  objs[content_id] = f"<< /Length {len(stream.encode('latin-1'))} >>\nstream\n{stream}\nendstream"
+                  objs[page_id] = f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 __FONT__ 0 R >> >> /Contents {content_id} 0 R >>"
+
+              font_id = len(objs)
+              objs.append("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>")
+              for i in range(len(objs)):
+                  if objs[i] and "__FONT__" in objs[i]:
+                      objs[i] = objs[i].replace("__FONT__", str(font_id))
+
+              objs[1] = "<< /Type /Catalog /Pages 2 0 R >>"
+              objs[2] = f"<< /Type /Pages /Kids [{' '.join(kids)}] /Count {len(kids)} >>"
+
+              pdf = "%PDF-1.4\n"
+              offsets = [0] * len(objs)
+              for i in range(1, len(objs)):
+                  offsets[i] = len(pdf.encode("latin-1"))
+                  pdf += f"{i} 0 obj\n{objs[i]}\nendobj\n"
+              xref = len(pdf.encode("latin-1"))
+              pdf += f"xref\n0 {len(objs)}\n0000000000 65535 f \n"
+              for i in range(1, len(objs)):
+                  pdf += f"{offsets[i]:010d} 00000 n \n"
+              pdf += f"trailer\n<< /Size {len(objs)} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n"
+              path.write_bytes(pdf.encode("latin-1"))
+
+          final = [
+              "VULNERABILITY MANAGEMENT PORTFOLIO LAB",
+              "",
+              "Final Technical Report - Portfolio Copy",
+              "",
+              "Scope: isolated VMware lab using Greenbone Vulnerability Management (GVM/OpenVAS).",
+              "Assets: 192.168.100.128 DVWA, 192.168.100.129 Windows 11,",
+              "192.168.100.131 Ubuntu. 192.168.100.132 is the management host.",
+              "",
+              "Workflow",
+              "Asset inventory -> baseline scan -> validation -> remediation -> authenticated verification -> final scan",
+              "",
+              "Primary outcome",
+              "DVWA displayed findings: 40 baseline -> 28 final.",
+              "Change: -12 displayed findings, a 30% reduction.",
+              "This is a scan-count comparison, not a universal security score.",
+              "",
+              "Authenticated verification",
+              "Ubuntu final authenticated scan: 0 displayed findings.",
+              "Windows final authenticated scan: 0 displayed findings.",
+              "",
+              "Residual risk",
+              "The legacy DVWA host remains on an end-of-life Ubuntu 10.04 platform.",
+              "Legacy TLS/OpenSSL, SSH algorithms, certificates, cookies, web/application weaknesses,",
+              "cleartext authentication transport and FTP exposure remain relevant.",
+              "",
+              "Selected remediation",
+              "Disabled server-status and server-info exposure.",
+              "Blocked Subversion metadata paths.",
+              "Applied partial TLS hardening on the legacy Apache/XAMPP stack.",
+              "Ubuntu: disabled TCP timestamps, removed weak SSH MACs, blocked ICMP timestamp requests.",
+              "Windows: disabled RFC 1323 TCP timestamps.",
+          ]
+          make_pdf(OUT/"Vulnerability_Management_Portfolio_Lab_Final_Report.pdf", "Final Report", final)
+
+          dvwa = [
+              "GVM FINAL SCAN REPORT - DVWA",
+              "Task: unuthenticated scan 1",
+              "Scan window: 2026-09-28 09:54:08-10:06:50 UTC",
+              "",
+              "Final displayed result summary",
+              "192.168.100.128: 1 Critical, 1 High, 23 Medium, 3 Low",
+              "192.168.100.131: 0 displayed findings",
+              "Total displayed findings: 28",
+              "Raw results before filtering: 591",
+              "",
+              "Key remaining findings",
+              "Critical: end-of-life Ubuntu 10.04 operating system.",
+              "High: OpenSSL CCS man-in-the-middle exposure.",
+              "Medium: legacy SSH key exchange and encryption algorithms.",
+              "Medium: deprecated TLS 1.0 behavior in the legacy stack.",
+              "Medium: weak 1024-bit RSA certificate.",
+              "Medium: expired / weak certificate material.",
+              "Medium: missing Secure and HttpOnly cookie attributes.",
+              "Medium: phpMyAdmin XSS findings.",
+              "Medium: cleartext password transmission over HTTP.",
+              "Medium: FTP cleartext login exposure.",
+              "",
+              "Interpretation",
+              "Selected web exposures were remediated, but the platform remains legacy and materially exposed.",
+          ]
+          make_pdf(OUT/"GVM_Final_DVWA_Unauthenticated.pdf", "DVWA", dvwa)
+
+          ubuntu = [
+              "GVM FINAL AUTHENTICATED SCAN - UBUNTU",
+              "Task: ubuntu auth 2",
+              "Host: 192.168.100.131",
+              "Scan window: 2026-09-28 09:45:58-09:51:59 UTC",
+              "Authentication method: SSH",
+              "Authentication status: Success",
+              "",
+              "Final result",
+              "Critical: 0",
+              "High: 0",
+              "Medium: 0",
+              "Low: 0",
+              "Displayed findings: 0",
+              "",
+              "Baseline issues remediated",
+              "TCP timestamps",
+              "Weak SSH MAC algorithms",
+              "ICMP timestamp replies",
+              "",
+              "Validation",
+              "TCP timestamps were disabled and persisted through system configuration.",
+              "Weak UMAC-64 SSH MAC variants were removed; SHA-2 HMAC/ETM algorithms remained.",
+              "ICMP timestamp requests stopped receiving replies after the firewall rule.",
+          ]
+          make_pdf(OUT/"GVM_Final_Ubuntu_Authenticated.pdf", "Ubuntu", ubuntu)
+
+          windows = [
+              "GVM FINAL AUTHENTICATED SCAN - WINDOWS",
+              "Task: authwin",
+              "Host: 192.168.100.129",
+              "Scan window: 2026-09-28 09:16:27-09:37:01 UTC",
+              "Authentication method: SMB",
+              "Authentication status: Success",
+              "",
+              "Final result",
+              "Critical: 0",
+              "High: 0",
+              "Medium: 0",
+              "Low: 0",
+              "Displayed findings: 0",
+              "",
+              "Baseline issue remediated",
+              "TCP timestamps",
+              "",
+              "Validation",
+              "RFC 1323 TCP timestamps were disabled at the Windows host.",
+              "Packet-level inspection was used to review SYN/ACK timestamp behavior.",
+              "SMB reachability was maintained as a prerequisite for authenticated scanning.",
+          ]
+          make_pdf(OUT/"GVM_Final_Windows_Authenticated.pdf", "Windows", windows)
+          PY
+
+      - name: Commit generated PDFs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/*.pdf
+          if git diff --cached --quiet; then
+            echo "No PDF changes."
+          else
+            git commit -m "Generate portfolio PDF artifacts"
+            git push
+          fi
