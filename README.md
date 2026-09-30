@@ -65,9 +65,9 @@ After remediation and authenticated re-scan, the final report showed **0 display
 
 ### DVWA / legacy web server
 
-- Disabled explicit `/server-status` exposure.
-- Disabled explicit `/server-info` exposure.
-- Blocked `/.svn` and related Subversion metadata paths.
+- Disabled explicit /server-status exposure.
+- Disabled explicit /server-info exposure.
+- Blocked /.svn and related Subversion metadata paths.
 - Hardened the legacy TLS configuration as far as the old Apache/OpenSSL stack allowed.
 - Preserved backups before web/TLS configuration changes.
 
@@ -87,13 +87,27 @@ After remediation and authenticated re-scan, the final report showed **0 display
 
 ## Evidence
 
-- [Final technical report](docs/final-report.md)
-- [Methodology](docs/methodology.md)
-- [Remediation details](docs/remediation.md)
-- [Residual risk](docs/residual-risk.md)
-- [Scan results](evidence/scan-results.md)
-- [Validation checks](evidence/validation-checks.md)
-- [Limitations and interpretation](evidence/limitations.md)
+### Reports
+- Final technical report PDF: reports/Vulnerability_Management_Portfolio_Lab_Final_Report.pdf
+- Final DVWA scan report: reports/GVM_Final_DVWA_Unauthenticated.pdf
+- Final Ubuntu authenticated scan: reports/GVM_Final_Ubuntu_Authenticated.pdf
+- Final Windows authenticated scan: reports/GVM_Final_Windows_Authenticated.pdf
+
+### Documentation
+- docs/final-report.md
+- docs/methodology.md
+- docs/remediation.md
+- docs/residual-risk.md
+- evidence/scan-results.md
+- evidence/scan-reports.md
+- evidence/validation-checks.md
+- evidence/limitations.md
+
+### Architecture
+- evidence/architecture.svg
+- evidence/before-after.svg
+
+Note: the PDFs in reports/ are portfolio-formatted copies derived from the verified scan/report contents. The original GVM export files remain the authoritative scanner evidence.
 
 ## Responsible use
 
