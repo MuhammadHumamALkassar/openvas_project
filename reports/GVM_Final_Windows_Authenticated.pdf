@@ -1,0 +1,70 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 940 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 44 760 Tm
+(GVM FINAL AUTHENTICATED SCAN - WINDOWS) Tj
+1 0 0 1 44 746 Tm
+(Task: authwin) Tj
+1 0 0 1 44 732 Tm
+(Host: 192.168.100.129) Tj
+1 0 0 1 44 718 Tm
+(Scan window: 2026-09-28 09:16:27-09:37:01 UTC) Tj
+1 0 0 1 44 704 Tm
+(Authentication method: SMB) Tj
+1 0 0 1 44 690 Tm
+(Authentication status: Success) Tj
+1 0 0 1 44 676 Tm
+(Final result) Tj
+1 0 0 1 44 662 Tm
+(Critical: 0) Tj
+1 0 0 1 44 648 Tm
+(High: 0) Tj
+1 0 0 1 44 634 Tm
+(Medium: 0) Tj
+1 0 0 1 44 620 Tm
+(Low: 0) Tj
+1 0 0 1 44 606 Tm
+(Displayed findings: 0) Tj
+1 0 0 1 44 592 Tm
+(Baseline issue remediated) Tj
+1 0 0 1 44 578 Tm
+(TCP timestamps) Tj
+1 0 0 1 44 564 Tm
+(Validation) Tj
+1 0 0 1 44 550 Tm
+(RFC 1323 TCP timestamps were disabled at the Windows host.) Tj
+1 0 0 1 44 536 Tm
+(Packet-level inspection was used to review SYN/ACK timestamp behavior.) Tj
+1 0 0 1 44 522 Tm
+(SMB reachability was maintained as a prerequisite for authenticated scanning.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001232 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1302
+%%EOF

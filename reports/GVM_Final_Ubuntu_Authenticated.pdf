@@ -1,0 +1,74 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1059 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 44 760 Tm
+(GVM FINAL AUTHENTICATED SCAN - UBUNTU) Tj
+1 0 0 1 44 746 Tm
+(Task: ubuntu auth 2) Tj
+1 0 0 1 44 732 Tm
+(Host: 192.168.100.131) Tj
+1 0 0 1 44 718 Tm
+(Scan window: 2026-09-28 09:45:58-09:51:59 UTC) Tj
+1 0 0 1 44 704 Tm
+(Authentication method: SSH) Tj
+1 0 0 1 44 690 Tm
+(Authentication status: Success) Tj
+1 0 0 1 44 676 Tm
+(Final result) Tj
+1 0 0 1 44 662 Tm
+(Critical: 0) Tj
+1 0 0 1 44 648 Tm
+(High: 0) Tj
+1 0 0 1 44 634 Tm
+(Medium: 0) Tj
+1 0 0 1 44 620 Tm
+(Low: 0) Tj
+1 0 0 1 44 606 Tm
+(Displayed findings: 0) Tj
+1 0 0 1 44 592 Tm
+(Baseline issues remediated) Tj
+1 0 0 1 44 578 Tm
+(TCP timestamps) Tj
+1 0 0 1 44 564 Tm
+(Weak SSH MAC algorithms) Tj
+1 0 0 1 44 550 Tm
+(ICMP timestamp replies) Tj
+1 0 0 1 44 536 Tm
+(Validation) Tj
+1 0 0 1 44 522 Tm
+(TCP timestamps were disabled and persisted through system configuration.) Tj
+1 0 0 1 44 508 Tm
+(Weak UMAC-64 SSH MAC variants were removed; SHA-2 HMAC/ETM algorithms remained.) Tj
+1 0 0 1 44 494 Tm
+(ICMP timestamp requests stopped receiving replies after the firewall rule.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001352 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1422
+%%EOF

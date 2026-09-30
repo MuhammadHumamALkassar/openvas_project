@@ -1,0 +1,78 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1420 >>
+stream
+BT
+/F1 10 Tf
+1 0 0 1 44 760 Tm
+(GVM FINAL SCAN REPORT - DVWA) Tj
+1 0 0 1 44 746 Tm
+(Task: unuthenticated scan 1) Tj
+1 0 0 1 44 732 Tm
+(Scan window: 2026-09-28 09:54:08-10:06:50 UTC) Tj
+1 0 0 1 44 718 Tm
+(Final displayed result summary) Tj
+1 0 0 1 44 704 Tm
+(192.168.100.128: 1 Critical, 1 High, 23 Medium, 3 Low) Tj
+1 0 0 1 44 690 Tm
+(192.168.100.131: 0 displayed findings) Tj
+1 0 0 1 44 676 Tm
+(Total displayed findings: 28) Tj
+1 0 0 1 44 662 Tm
+(Raw results before filtering: 591) Tj
+1 0 0 1 44 648 Tm
+(Key remaining findings) Tj
+1 0 0 1 44 634 Tm
+(Critical: end-of-life Ubuntu 10.04 operating system.) Tj
+1 0 0 1 44 620 Tm
+(High: OpenSSL CCS man-in-the-middle exposure.) Tj
+1 0 0 1 44 606 Tm
+(Medium: legacy SSH key exchange and encryption algorithms.) Tj
+1 0 0 1 44 592 Tm
+(Medium: deprecated TLS 1.0 behavior in the legacy stack.) Tj
+1 0 0 1 44 578 Tm
+(Medium: weak 1024-bit RSA certificate.) Tj
+1 0 0 1 44 564 Tm
+(Medium: expired / weak certificate material.) Tj
+1 0 0 1 44 550 Tm
+(Medium: missing Secure and HttpOnly cookie attributes.) Tj
+1 0 0 1 44 536 Tm
+(Medium: phpMyAdmin XSS findings.) Tj
+1 0 0 1 44 522 Tm
+(Medium: cleartext password transmission over HTTP.) Tj
+1 0 0 1 44 508 Tm
+(Medium: FTP cleartext login exposure.) Tj
+1 0 0 1 44 494 Tm
+(Interpretation) Tj
+1 0 0 1 44 480 Tm
+(Selected web exposures were remediated, but the platform remains legacy and materially) Tj
+1 0 0 1 44 466 Tm
+(exposed.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001713 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1783
+%%EOF
